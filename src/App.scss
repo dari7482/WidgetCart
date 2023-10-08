@@ -1,0 +1,6 @@
+// Import Bootstrap and its default variables
+
+$theme-colors: ('info': tomato,
+    'danger': teal);
+
+@import "node_modules/bootstrap/scss/bootstrap";
