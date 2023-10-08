@@ -12,7 +12,7 @@ const NavBar = () => {
     return (
 
 
-        <Navbar className="containerApp" bg="light" data-bs-theme="light" >
+        <Navbar className="containerApp" bg="primary" data-bs-theme="dark" >
 
             <Navbar.Brand href="#home">MarketTechnology</Navbar.Brand>
             <Nav className="me-auto">
