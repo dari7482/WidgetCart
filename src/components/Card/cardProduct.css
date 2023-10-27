@@ -1,0 +1,93 @@
+.card {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    height: 500px;
+    width: 16rem;
+    text-align: center;
+    font-family: arial;
+    display: flex;
+    flex-wrap: nowrap;
+    margin-top: 15px;
+
+}
+
+.price {
+    color: grey;
+    font-size: 22px;
+    margin-bottom: 5px;
+}
+
+.card button {
+    border: none;
+    outline: 0;
+    padding: 12px;
+    color: white;
+    background-color: #000;
+    text-align: center;
+    cursor: pointer;
+    width: 100%;
+    font-size: 18px;
+}
+
+
+
+.counter {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+    row-gap: 10px;
+}
+
+.counter h1 {
+    color: rgb(16, 0, 54);
+    font-size: 40px;
+    font-family: cursive;
+}
+
+.counter__output {
+    font-size: 35px;
+    color: rgb(116, 7, 7);
+}
+
+.btn__container {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    width: 10rm;
+    column-gap: 20px;
+}
+
+.control__btn {
+    font-size: 20px;
+    padding: 10px 20px;
+    background-color: transparent;
+    color: rgb(16, 0, 54);
+    border: 1px solid rgb(16, 0, 54);
+    cursor: pointer;
+    margin-bottom: 5px;
+
+}
+
+.control__btn:hover {
+    background-color: rgb(16, 0, 54);
+    color: rgb(255, 255, 255);
+
+}
+
+.reset {
+    width: 100px;
+    font-size: 18px;
+    padding: 10px 20px;
+    background-color: transparent;
+    color: rgb(16, 0, 54);
+    border: 1px solid rgb(16, 0, 54);
+    cursor: pointer;
+
+}
+
+.reset:hover {
+    background-color: rgb(16, 0, 54);
+    color: rgb(255, 255, 255);
+    border: 1px solid rgb(16, 0, 54);
+}

@@ -1,17 +1,49 @@
+* {
+
+  margin: 0;
+
+  padding: 0;
+
+  box-sizing: border-box;
+
+}
+
 .containerApp {
   padding-left: 20px;
   padding-right: 25px;
   padding-top: 5px;
+  width: 100vw;
 
 }
 
 .ContainerWelcome {
 
   display: flex;
-  width: 100vw;
-  height: 50vh;
-  justify-content: center;
+  width: 75vw;
+  justify-content: flex-start;
   align-items: center;
+  column-gap: 4rem;
+  margin-top: 2rem;
+  margin-right: 0rem;
+  margin-left: 2rem;
+  flex-wrap: wrap;
 
+
+
+}
+
+.conteinerItems {
+  display: flex;
+
+
+
+}
+
+.ContainerDrop {
+
+  display: flex;
+  justify-content: center;
+  margin: 2rem;
+  width: 15vw;
 
 }
