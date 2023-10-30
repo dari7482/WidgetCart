@@ -1,0 +1,75 @@
+.card1 {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+
+    width: 55rem;
+    text-align: center;
+    font-family: arial;
+    display: flex;
+    flex-wrap: nowrap;
+    margin-top: 15px;
+
+}
+
+.price {
+    color: grey;
+    font-size: 22px;
+    margin-bottom: 5px;
+    text-align: left
+}
+
+.card button {
+    border: none;
+    outline: 0;
+    padding: 12px;
+    color: white;
+    background-color: #000;
+    text-align: center;
+    cursor: pointer;
+    width: 100%;
+    font-size: 18px;
+}
+
+
+
+.counter {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+    row-gap: 10px;
+}
+
+.counter h1 {
+    color: rgb(16, 0, 54);
+    font-size: 40px;
+    font-family: cursive;
+}
+
+.counter__output {
+    font-size: 35px;
+    color: rgb(116, 7, 7);
+}
+
+.img-zoom-container {
+    position: relative;
+}
+
+.img-zoom-lens {
+    position: absolute;
+    border: 1px solid #d4d4d4;
+    /*set the size of the lens:*/
+    width: 40px;
+    height: 40px;
+}
+
+.img-zoom-result {
+    border: 1px solid #d4d4d4;
+    /*set the size of the result div:*/
+    width: 300px;
+    height: 300px;
+}
+
+* {
+    box-sizing: border-box;
+}

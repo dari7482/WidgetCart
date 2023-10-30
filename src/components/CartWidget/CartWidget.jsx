@@ -12,9 +12,9 @@ const CartWidget = ({ productos }) => {
     const [modalShow, setModalShow] = useState(false);
 
     return (
-        <div>
-            <img src={cart} alt="cart-widget" onClick={() => setModalShow(true)} style={{ cursor: "pointer" }} />
-            <p style={{ backgroundColor: 'white', textAlign: 'center', borderRadius: '70%' }}>{productos.length}</p>
+        <div >
+            <img src={cart} alt="cart-widget" onClick={() => setModalShow(true)} style={{ cursor: "pointer", paddingTop: '5px', paddingRight: '15px' }} />
+            <p style={{ backgroundColor: 'white', textAlign: 'center', borderRadius: '70%', marginRight: '15px' }}>{productos.length}</p>
             <Modals show={modalShow} onHide={() => setModalShow(false)} productos={productos} />
         </div>)
 
