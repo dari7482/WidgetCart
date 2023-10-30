@@ -4,6 +4,7 @@ import { useState } from 'react';
 //import frenos from '../../assets/img/Shimano.png'
 
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
 
 
@@ -57,8 +58,8 @@ function CardProduct({ producto, cartTrue, onHandleCart }) {
         <>
             <div className="card">
                 <img src={imagen} alt="Frenos" style={{ height: '252px' }} />
-                < h4 style={{ display: 'flex', height: '40px', margin: '0px', justifyContent: 'center', alignItems: 'center' }}>{name}</h4>
-                <p className="price">{price}</p>
+                < h4 style={{ display: 'flex', height: '40px', margin: '0px', justifyContent: 'center', alignItems: 'center' }}><Link to={`/productos/${id}`} >{name}</Link></h4>
+                <p className="price1">{price}</p>
                 <p style={{ margin: '0px' }}>{description}</p>
                 <div className="counter">
                     <span className="counter__output">{counter}</span>

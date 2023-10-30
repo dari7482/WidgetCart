@@ -7,9 +7,11 @@ import Row from 'react-bootstrap/Row';
 import PropTypes from 'prop-types';
 import CardProductCart from '../CardCart/cardProductCart'
 import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 //import { useState } from 'react';
 
 function Modals(props) {
+    const navigate = useNavigate();
 
     //const [price, setPrice] = useState('')
 
@@ -23,6 +25,12 @@ function Modals(props) {
 
 
     }, [])
+
+    const navigateCreditCard = () => {
+
+        navigate('/Compra')
+
+    }
 
     return (
         <Modal {...props} aria-labelledby="contained-modal-title-vcenter" scrollable>
@@ -47,13 +55,13 @@ function Modals(props) {
                         </Col>
                     </Row>
 
-
                 </Container>
             </Modal.Body>
             <Modal.Footer>
-                <Button onClick={props.onHide}>Close</Button>
+                <Button onClick={props.onHide} variant="primary">Close</Button>
+                <Button onClick={navigateCreditCard} style={{ backgroundColor: 'blue', color: 'white' }}>Comprar</Button>
             </Modal.Footer>
-        </Modal>
+        </Modal >
     );
 }
 
