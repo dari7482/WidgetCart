@@ -209,12 +209,13 @@ function App() {
         productOncart ? setMessage(true) : setMessage(false)
 
     }
+
+
+
     return (
         <>
 
             {data ? (<>
-
-
                 <NavBar className="containerApp" productos={addCart ? addCart : data} />
                 {messega ? <ToastMesage message={addNewProduct === '0' ? 'Warning' : 'Success'} /> : null}
 
