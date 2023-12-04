@@ -4,6 +4,7 @@ import Loading from '../components/Loading/Loading'
 import NavBar from '../components/NavBar/NavBar'
 import ToastMesage from '../components/Toast/ToastMesage'
 import useGetData from '../customHook/GetDb'
+import Multidropdowin from '../components/multidropdown/Multidropdowin'
 
 
 
@@ -27,6 +28,16 @@ function App() {
 
 
     }, [messega])
+    const onHandleMd = (valor, ref) => {
+        console.log('196', valor, ref)
+
+
+        setDataFilter(valor)
+        console.log(dataFilter)
+
+
+    }
+
 
 
     const onHandleCart = (productOncart, action) => {
@@ -75,10 +86,22 @@ function App() {
             {!isLoading ? (<>
                 <NavBar className="containerApp" productos={addCart ? addCart : data} onCart={onHandleCart} />
                 {messega ? <ToastMesage message={addNewProduct === '0' ? 'Warning' : 'Success'} /> : null}
-                <div>
-                    < ItemListContainer productos={dataFilter ? dataFilter : data} onCart={onHandleCart} />
+                < div className='conteinerItems' >
+                    <div>
+                        < ItemListContainer productos={dataFilter ? dataFilter : data} onCart={onHandleCart} />
+                    </div>
+                    <div style={{ width: '20vw', display: 'flex', alignItems: 'center', flexDirection: 'column', boxShadow: 'rgba(0.35, 0.35, 0.35, 0.35) 0px 5px 15px', marginTop: '3rem', height: '45vh', marginBottom: '20px' }}>
+                        <div >
+                            < Multidropdowin productos={data} onHandleMulti={onHandleMd} datos={'prod'} title={'categoria'} all={data} />
+                        </div>
+                        <div>
+                            < Multidropdowin productos={dataFilter ? dataFilter : data} onHandleMulti={onHandleMd} datos={'ref'} title={'precio'} all={data} />
+                        </div>
+                        <div>
+                            < Multidropdowin productos={dataFilter ? dataFilter : data} onHandleMulti={onHandleMd} datos={'marca'} title={'marca'} all={data} />
+                        </div>
+                    </div>
                 </div>
-
             </>)
                 : (<Loading />)
             }
