@@ -42,13 +42,14 @@ function CardProduct({ producto, cartTrue, onHandleCart }) {
             categoria: categoria,
             imagen: imagen,
             marca: marca,
-            cantidad: counter.toString()
+            cantidad: counter.toString(),
+            total: parseInt(producto.cantidad.price) * counter
 
         }]
 
         console.log(productosCantidad)
 
-        onHandleCart(productosCantidad)
+        onHandleCart(productosCantidad, 'add')
 
     }
     //reset counter 

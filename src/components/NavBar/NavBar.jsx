@@ -7,8 +7,9 @@ import CartWidget from '../CartWidget/CartWidget';
 import Nav from 'react-bootstrap/Nav';
 import Carrosuel from '../Carrosuel/Carrosuel';
 
-const NavBar = ({ productos }) => {
+const NavBar = ({ productos, onCart }) => {
     console.log(productos)
+    console.log(onCart)
 
 
     return (
@@ -21,7 +22,7 @@ const NavBar = ({ productos }) => {
 
 
                 </Nav>
-                {productos ? <CartWidget productos={productos} /> : null}
+                {productos ? <CartWidget productos={productos} onHandleCart={onCart} /> : null}
             </Navbar>
 
             {productos ? <Carrosuel style={{ width: '100vw' }} /> : null}
@@ -34,6 +35,7 @@ const NavBar = ({ productos }) => {
 
 NavBar.propTypes = {
     productos: PropTypes.node,
+    onCart: PropTypes.node,
 };
 
 export default NavBar

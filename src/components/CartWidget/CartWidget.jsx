@@ -4,7 +4,8 @@ import Modals from '../modal/Modals';
 import PropTypes from 'prop-types';
 
 
-const CartWidget = ({ productos }) => {
+const CartWidget = ({ productos, onHandleCart }) => {
+    console.log(onHandleCart)
     console.log(productos)
 
 
@@ -15,7 +16,12 @@ const CartWidget = ({ productos }) => {
         <div >
             <img src={cart} alt="cart-widget" onClick={() => setModalShow(true)} style={{ cursor: "pointer", paddingTop: '5px', paddingRight: '15px' }} />
             <p style={{ backgroundColor: 'white', textAlign: 'center', borderRadius: '70%', marginRight: '15px' }}>{productos.length}</p>
-            <Modals show={modalShow} onHide={() => setModalShow(false)} productos={productos} />
+            <Modals
+                show={modalShow}
+                onHide={() => setModalShow(false)}
+                productos={productos}
+                onHandleCart={onHandleCart}
+            />
         </div>)
 
 
@@ -25,6 +31,7 @@ const CartWidget = ({ productos }) => {
 CartWidget.propTypes = {
     productos: PropTypes.node,
     cart: PropTypes.node,
+    onHandleCart: PropTypes.node,
 
 }
 

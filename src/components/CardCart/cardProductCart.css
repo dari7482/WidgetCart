@@ -13,6 +13,8 @@
 .price {
     color: grey;
     font-size: 22px;
+    display: flex;
+    justify-content: center;
 }
 
 .card button {
