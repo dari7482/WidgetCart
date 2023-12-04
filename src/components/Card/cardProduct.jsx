@@ -43,7 +43,7 @@ function CardProduct({ producto, cartTrue, onHandleCart }) {
             imagen: imagen,
             marca: marca,
             cantidad: counter.toString(),
-            total: parseInt(producto.cantidad.price) * counter
+
 
         }]
 

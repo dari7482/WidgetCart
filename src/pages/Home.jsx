@@ -39,9 +39,25 @@ function App() {
             console.log(typeof (counterNewProduct))
             setNewProduct(counterNewProduct)
 
-            // productOncartAdd.push(productOncart)
-            //console.log(productOncartAdd)
-            setAddCart(() => [...addCart, ...productOncart])
+            const totalProduct = [...addCart, ...productOncart]
+            console.log(totalProduct)
+            const unifiedArray = totalProduct.reduce((acc, currentItem) => {
+                const existingItem = acc.find(item => item.id === currentItem.id);
+
+                if (existingItem) {
+                    // Si el elemento ya existe, se actualiza el stock sumando el nuevo valor al existente
+                    existingItem.cantidad = parseInt(currentItem.cantidad) + parseInt(existingItem.cantidad)
+
+                } else {
+                    // Si el elemento no existe, se agrega al array
+                    acc.push(currentItem);
+                }
+
+                return acc;
+            }, []);
+            console.log(unifiedArray)
+
+            setAddCart(() => unifiedArray)
             productOncart ? setMessage(true) : setMessage(false)
         } else {
             console.log(addCart)
