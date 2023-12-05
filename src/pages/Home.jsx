@@ -1,110 +1,113 @@
-import { useState, useEffect } from 'react'
-import ItemListContainer from '../components/ItemListContainer/ItemListContainer'
-import Loading from '../components/Loading/Loading'
-import NavBar from '../components/NavBar/NavBar'
-import ToastMesage from '../components/Toast/ToastMesage'
-import useGetData from '../customHook/GetDb'
-import Multidropdowin from '../components/multidropdown/Multidropdowin'
 
+import { app } from "../db/config"
+import { collection, getDocs, getFirestore, /*setDoc,*/ addDoc/*, updateDoc, doc, writeBatch*/ } from "firebase/firestore"
+import { useState } from "react";
+
+const productos = [
+    {
+        id: '30',
+        name: 'Cubierta',
+        description: 'Carrera',
+        price: '500',
+        stock: '100',
+        categoria: 'Repuestos',
+        imagen: 'src/assets/img/cubierta1.png',
+        marca: 'Bianchi',
+        cantidad: '0'
+    },
+    {
+        id: '31',
+        name: 'Herramientas',
+        description: 'Corta cadena',
+        price: '19.99',
+        stock: '50',
+        categoria: 'Repuesto',
+        imagen: 'src/assets/img/herramienta.png',
+        marca: 'shimano',
+        cantidad: '0'
+
+    },
+    {
+        id: '32',
+        name: 'Cubiertas',
+        description: 'Cubiertas Carrea',
+        price: '7.99',
+        stock: '75',
+        categoria: 'Repuestos',
+        imagen: 'src/assets/img/cubierta2.png',
+        marca: 'shimano',
+        cantidad: '0'
+    },
+
+    {
+        id: '34',
+        name: 'Inflador',
+        description: 'Inflador',
+        price: '7.99',
+        stock: '75',
+        categoria: 'Repuestos',
+        imagen: 'src/assets/img/inflador.png',
+        marca: 'Thunder',
+        cantidad: '0'
+    },
+    {
+        id: '35',
+        name: 'Calza',
+        description: 'Calza',
+        price: '2007.99',
+        stock: '75',
+        categoria: 'Indumentaria',
+        imagen: 'src/assets/img/calza.png',
+        marca: 'shimano',
+        cantidad: '0'
+    },
+
+];
 
 
 function App() {
-    const [data, isLoading] = useGetData()
 
-    //const [data, setData] = useState('')
-    const [dataFilter, setDataFilter] = useState('')
-    const [addCart, setAddCart] = useState([])
-    const [messega, setMessage] = useState(false)
-    const [addNewProduct, setNewProduct] = useState()
+    const [data, setData] = useState()
 
 
-    useEffect(() => {
+    const db = getFirestore(app);
+    const biciRef = collection(db, "items");
+    const getData = () => {
+        getDocs(biciRef).then((snapshot) => {
+            if (snapshot.size !== 0) {
+                setTimeout(() => {
+                    const productsList = snapshot.docs.map((doc) => ({
+                        id: doc.id,
+                        ...doc.data()
+                    }))
 
-        setTimeout(() => {
+                    setData(productsList)
+                    console.log(productsList)
 
-            setMessage(false)
-
-        }, 600)
-
-
-    }, [messega])
-    const onHandleMd = (valor, ref) => {
-        console.log('196', valor, ref)
+                }, 6000)
 
 
-        setDataFilter(valor)
-        console.log(dataFilter)
 
+            } else {
+                console.log("item no encontrado")
 
+            }
+        })
     }
 
-
-
-    const onHandleCart = (productOncart, action) => {
-
-
-        console.log(productOncart)
-        //const productOncartAdd = []
-        if (action === 'add') {
-            const counterNewProduct = productOncart[0].cantidad
-            console.log(typeof (counterNewProduct))
-            setNewProduct(counterNewProduct)
-
-            const totalProduct = [...addCart, ...productOncart]
-            console.log(totalProduct)
-            const unifiedArray = totalProduct.reduce((acc, currentItem) => {
-                const existingItem = acc.find(item => item.id === currentItem.id);
-
-                if (existingItem) {
-                    // Si el elemento ya existe, se actualiza el stock sumando el nuevo valor al existente
-                    existingItem.cantidad = parseInt(currentItem.cantidad) + parseInt(existingItem.cantidad)
-
-                } else {
-                    // Si el elemento no existe, se agrega al array
-                    acc.push(currentItem);
-                }
-
-                return acc;
-            }, []);
-            console.log(unifiedArray)
-
-            setAddCart(() => unifiedArray)
-            productOncart ? setMessage(true) : setMessage(false)
-        } else {
-            console.log(addCart)
-            console.log(productOncart)
-
-            const productRemove = addCart.filter(items => items.id !== productOncart.id)
-            console.log(productRemove)
-            setAddCart(productRemove)
-
-        }
-
+    const submitItems = () => {
+        const biciRef = collection(db, "items");
+        console.log(productos)
+        productos.map((producto) => {
+            addDoc(biciRef, producto).then((response) => {
+                console.log("documento generado,id:", response.id)
+            })
+        })
     }
     return (
         <>
-            {!isLoading ? (<>
-                <NavBar className="containerApp" productos={addCart ? addCart : data} onCart={onHandleCart} />
-                {messega ? <ToastMesage message={addNewProduct === '0' ? 'Warning' : 'Success'} /> : null}
-                < div className='conteinerItems' >
-                    <div>
-                        < ItemListContainer productos={dataFilter ? dataFilter : data} onCart={onHandleCart} />
-                    </div>
-                    <div style={{ width: '20vw', display: 'flex', alignItems: 'center', flexDirection: 'column', boxShadow: 'rgba(0.35, 0.35, 0.35, 0.35) 0px 5px 15px', marginTop: '3rem', height: '45vh', marginBottom: '20px' }}>
-                        <div >
-                            < Multidropdowin productos={data} onHandleMulti={onHandleMd} datos={'prod'} title={'categoria'} all={data} />
-                        </div>
-                        <div>
-                            < Multidropdowin productos={dataFilter ? dataFilter : data} onHandleMulti={onHandleMd} datos={'ref'} title={'precio'} all={data} />
-                        </div>
-                        <div>
-                            < Multidropdowin productos={dataFilter ? dataFilter : data} onHandleMulti={onHandleMd} datos={'marca'} title={'marca'} all={data} />
-                        </div>
-                    </div>
-                </div>
-            </>)
-                : (<Loading />)
-            }
+            <button onClick={getData}> data</button>
+            <button onClick={submitItems}> add</button>
         </>
     )
 }
