@@ -2,15 +2,11 @@ import { useState, useEffect } from 'react';
 import 'react-credit-cards/es/styles-compiled.css';
 import './Compra.css';
 import NavBar from "../components/NavBar/NavBar";
-import { collection, getFirestore, doc, addDoc, updateDoc, setDoc } from "firebase/firestore"
-import { useNavigate } from 'react-router-dom';
-import { app } from "../db/config.jsx"
-import { useParams } from 'react-router-dom';
 import GetDataUser from '../customHook/GetUserData'
 import GetDataOrder from '../customHook/GetUserOrder'
 import { useLocation } from 'react-router-dom';
 import Loading from '../components/Loading/Loading';
-import Table from 'react-bootstrap/Table';
+
 
 
 function Data() {
@@ -19,7 +15,7 @@ function Data() {
     const [dataOrder] = GetDataOrder()
     const [dataProduct, setData] = useState('')
     const [dataProductOrder, setDataOrder] = useState('')
-    const [dataTabla, setDataTabla] = useState('')
+
     const location = useLocation();
     const pathSegments = location.pathname.split('/');
     console.log(pathSegments)
@@ -27,7 +23,7 @@ function Data() {
     const lastTwoParams = pathSegments.slice(-2)
     console.log(lastTwoParams)
     const carrito = lastTwoParams[0]
-    const user = lastTwoParams[1]
+
 
     console.log(data)
 
@@ -42,7 +38,7 @@ function Data() {
             console.log(filterDataUser[0].items)
             setDataOrder(filterDataUser)
 
-            setDataTabla(filterDataUser[0].items)
+
         }
 
     }, [data, dataOrder])
