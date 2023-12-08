@@ -6,6 +6,8 @@ import Modal from 'react-bootstrap/Modal';
 import Row from 'react-bootstrap/Row';
 import PropTypes from 'prop-types';
 import CardProductCart from '../CardCart/cardProductCart'
+import { collection, getFirestore, /*setDoc,*/ addDoc } from "firebase/firestore"
+import { app } from "../../db/config"
 
 import { useNavigate } from 'react-router-dom';
 //import { useState } from 'react';
@@ -14,7 +16,7 @@ function Modals(props, { onHandleCart }) {
     const navigate = useNavigate();
     console.log(props)
     console.log(onHandleCart)
-    //const [price, setPrice] = useState('')
+    //const [idProduct, setidProduct] = useState('')
 
     const { productos } = props
 
@@ -41,16 +43,73 @@ function Modals(props, { onHandleCart }) {
             return {
                 ...item,
                 stock: item.stock - parseInt(item.cantidad),
+            }
+        })
+        const total = {
+            total: {
+                cantidad: totalValue,
+                total: totalAmount,
+                status: 'pending'
+            }
+        }
+
+
+
+        const OrderDetail = productos.map((item) => {
+            return {
+                id: item.id,
+                categoria: item.categoria,
+                description: item.description,
+                cantidad: item.cantidad,
+                price: item.price,
 
             }
-
-
         })
+
+        const items = { items: OrderDetail }
+
+        const MergeUserOrder = Object.assign(total, items)
+        console.log(OrderDetail)
+        //console.log(MergeUserOrder)
+        const db = getFirestore(app);
+        const order = collection(db, "orders")
 
         console.log(updateProduct)
 
-        navigate('/Compra')
+
+        /*updateProduct.map((items) => {
+            const batch = writeBatch(db);
+            const orderRef = doc(db, "orders", items.Id);
+            const itemsColl = collection(db, 'items')
+            const q = query(itemsColl, where("id", "==", "1"))
+
+            getDocs(q).then((snapshot) => {
+                const lista = snapshot.docs.map((doc) => ({
+                    id: snapshot.id,
+                    ...doc.data()
+
+
+                }))
+
+                console.log(lista)
+            })
+
+            const cant = doc(db, "items", "8CfGzt44Gw8S5xc6MGRP")
+            batch.update(cant, { stock: '10' })
+            batch.commit().then(() => {
+                console.log("update")
+            })
+        })*/
+        addDoc(order, MergeUserOrder).then((response) => {
+            console.log("documento generado,id:", response.id)
+            const orderid = response.id
+            navigate(`/DatosPersonales/${orderid}`)
+        })
+
     }
+
+
+
     return (
         <Modal {...props} size="md" aria-labelledby="contained-modal-title-vcenter" scrollable>
             <Modal.Header closeButton>

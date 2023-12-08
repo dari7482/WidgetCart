@@ -6,8 +6,23 @@ import Input from "../components/Input/input";
 import './Compra.css';
 import { useState } from "react";
 import NavBar from "../components/NavBar/NavBar";
+import { useNavigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
 function Compra() {
+
+    const navigate = useNavigate();
+    const location = useLocation();
+    const pathSegments = location.pathname.split('/');
+    console.log(pathSegments)
+
+    const lastTwoParams = pathSegments.slice(-2)
+    console.log(lastTwoParams)
+    const carrito = lastTwoParams[0]
+    const user = lastTwoParams[1]
+
+
+
     const [stateName, setStateName] = useState('')
     const [stateNumber, setStateNumber] = useState('')
     const [stateCvc, setStateCvc] = useState('')
@@ -37,6 +52,14 @@ function Compra() {
 
     }
 
+    const onSubmitForm = (event) => {
+        event.preventDefault()
+        navigate(`/DatosCompra/${carrito}/${user}`)
+
+
+
+    }
+
 
     return (
         <>
@@ -55,7 +78,7 @@ function Compra() {
                             />
                         </div>
 
-                        <form >
+                        <form onSubmit={(event) => onSubmitForm(event)} >
 
                             <div >
                                 <Input
@@ -93,7 +116,7 @@ function Compra() {
 
                             />
 
-                            <button type="button" className="btn btn-success btn-block btn-lg">Pagar</button>
+                            <button type="submit" className="btn btn-success btn-block btn-lg">Pagar</button>
 
                         </form>
 

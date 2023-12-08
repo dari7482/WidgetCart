@@ -3,14 +3,14 @@ import './Input.css';
 import PropTypes from 'prop-types';
 
 
-function Input({ type, label, name, handleInputChangeProp, handleFocusChangeProp }) {
+function Input({ type, label, name, handleInputChangeProp }) {
     const [value, setValue] = useState('');
 
     function handleChange(e) {
         setValue(e.target.value);
         console.log(e.target.name)
         handleInputChangeProp(e)
-        handleFocusChangeProp(e)
+
 
     }
 
@@ -29,7 +29,7 @@ Input.propTypes = {
     label: PropTypes.node,
     name: PropTypes.node,
     handleInputChangeProp: PropTypes.node,
-    handleFocusChangeProp: PropTypes.node,
+
 
 }
 
