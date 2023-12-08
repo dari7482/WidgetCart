@@ -6,7 +6,7 @@ import { app } from "../db/config"
 export default function useGetDataOrder() {
 
     const [dataOrder, setDataOrder] = useState()
-    //const [isLoading, setIsLoading] = useState(true)
+    const [isLoading, setIsLoading] = useState(true)
     const db = getFirestore(app);
 
     useEffect(() => {
@@ -19,7 +19,7 @@ export default function useGetDataOrder() {
                         id: doc.id,
                         ...doc.data()
                     }))
-                    //setIsLoading(false)
+                    setIsLoading(false)
                     setDataOrder(productsList)
                     console.log(productsList)
 
@@ -31,7 +31,7 @@ export default function useGetDataOrder() {
 
     }, [])
 
-    return [dataOrder]
+    return [dataOrder, isLoading]
 
 }
 

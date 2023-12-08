@@ -6,15 +6,18 @@ import GetDataUser from '../customHook/GetUserData'
 import GetDataOrder from '../customHook/GetUserOrder'
 import { useLocation } from 'react-router-dom';
 import Loading from '../components/Loading/Loading';
+import TableOrder from '../components/table/TableOrder';
+import { Tab } from 'react-bootstrap';
 
 
 
 function Data() {
     //const { id } = useParams()
     const [data, isLoading] = GetDataUser()
-    const [dataOrder] = GetDataOrder()
+    const [dataOrder, isLoadingOrder] = GetDataOrder()
     const [dataProduct, setData] = useState('')
     const [dataProductOrder, setDataOrder] = useState('')
+    const [dataTabla, setDataTabla] = useState([])
 
     const location = useLocation();
     const pathSegments = location.pathname.split('/');
@@ -28,7 +31,7 @@ function Data() {
     console.log(data)
 
     useEffect(() => {
-        if (!isLoading) {
+        if (!isLoadingOrder) {
             console.log(data)
             const filterData = data.filter(item => item.id === carrito)
             console.log(filterData)
@@ -37,15 +40,18 @@ function Data() {
             const filterDataUser = dataOrder.filter(item => item.id === carrito)
             console.log(filterDataUser[0].items)
             setDataOrder(filterDataUser)
+            setDataTabla(filterDataUser[0].items)
+            console.log(dataTabla)
+
 
 
         }
 
-    }, [data, dataOrder])
+    }, [data, dataOrder, dataTabla])
     return (
         <>
             <NavBar />
-            {!isLoading ? (<>
+            {dataOrder ? (<>
                 <div style={{ display: 'flex', justifyContent: 'center', height: '40vh', alignItems: 'center', marginTop: '50px' }}>
                     <div className="card" style={{ width: '800px' }} >
                         <div className="card-body" >
@@ -58,13 +64,22 @@ function Data() {
                                 <p className="price">$ {dataProductOrder === "" ? "" : dataProductOrder[0].total.total}</p>
                             </div>
                         </div>
-
                     </div>
+                </div>
+
+
+
+                <h2 style={{ display: 'flex', justifyContent: 'center' }}>Productos </h2>
+                <TableOrder
+                    dataTable={dataTabla}
+
+
+                />
 
 
 
 
-                </div></>) : (<Loading />)
+            </>) : (<Loading />)
             }
 
 
